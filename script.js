@@ -9,6 +9,7 @@ var selector;
 var selectorwidth = 200;
 var currentValue = "Default";
 var pseudoInfinity = 5;
+var instruction = "Please allow a few seconds for the fractal to render";
 
 //((a^2 - b^2) + 2abi) + (a + b)
 //        c^2          + c
@@ -72,22 +73,28 @@ function mandelbroth(row, col){
 
 function setup(){
     createCanvas(650, 650);
-    background(255);
+    background(0);
     img = createImage(width, height);
     selector = createSelect();
-    selector.position(windowWidth-selectorwidth-50, 50);
+    selector.position(windowWidth-selectorwidth-50, windowHeight/3);
     selector.option('Default');
     selector.option('Red');
     selector.option('Green');
     selector.option('Blue');
     selector.style('width', "200px");
     mandelbroth();
+    image(img, 0, 0);
+    fill(200);
+    textSize(15);
+    noStroke();
+    text(instruction, 30, 40);
 }
 
 function draw(){
     if(selector.value() != currentValue){
         mandelbroth();
+        text(instruction, 30, 40);
         currentValue = selector.value();
+        image(img, 0, 0);
     }
-    image(img, 0, 0);
 }
